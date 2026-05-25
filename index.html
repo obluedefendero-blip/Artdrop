@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Doodle Art – ArtDrop</title>
+<meta name="description" content="Fun whimsical doodles — perfect for wallpapers! Free download, no sign-up!">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Playfair+Display:ital,wght@0,700;1,600&display=swap" rel="stylesheet">
+<style>
+:root{--purple:#b39ddb;--purple-deep:#9575cd;--purple-soft:#ede7f6;--purple-mid:#d1c4e9;--yellow:#ffe082;--yellow-deep:#ffca28;--blue:#b3e5fc;--blue-deep:#4fc3f7;--white:#ffffff;--bg:#f8f6ff;--text:#3d3460;--muted:#9e8fbe;--radius:16px;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);}
+nav{background:var(--white);box-shadow:0 2px 14px rgba(179,157,219,0.15);padding:0 20px;display:flex;align-items:center;justify-content:space-between;height:62px;position:sticky;top:0;z-index:100;}
+.logo{display:flex;align-items:center;gap:9px;text-decoration:none;}
+.logo-icon{width:36px;height:36px;background:linear-gradient(135deg,var(--purple-deep),var(--blue-deep));border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:17px;}
+.logo-text{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;color:var(--purple-deep);}
+.logo-text span{color:var(--yellow-deep);}
+.back-btn{text-decoration:none;background:var(--purple-soft);color:var(--purple-deep);padding:8px 16px;border-radius:100px;font-size:0.8rem;font-weight:800;display:flex;align-items:center;gap:5px;}
+.page-hero{background:linear-gradient(135deg,#ede7f6,#fce4ec,#fff);padding:44px 20px 36px;text-align:center;position:relative;overflow:hidden;}
+.page-hero::before{content:'✏️';position:absolute;font-size:130px;opacity:0.07;top:-20px;left:-15px;pointer-events:none;}
+.cat-label{display:inline-block;background:#ede7f6;color:#4a148c;font-size:0.68rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;padding:5px 14px;border-radius:100px;margin-bottom:12px;}
+.page-hero h1{font-family:'Playfair Display',serif;font-size:clamp(1.7rem,4vw,2.8rem);margin-bottom:8px;}
+.page-hero p{color:var(--muted);font-size:0.88rem;font-weight:600;max-width:400px;margin:0 auto;}
+.how-to{background:var(--white);border:2px dashed var(--purple-mid);border-radius:14px;padding:16px 20px;max-width:680px;margin:20px auto 0;font-size:0.8rem;color:var(--muted);line-height:1.6;text-align:center;}
+.how-to strong{color:var(--purple-deep);}
+.controls{max-width:1100px;margin:0 auto;padding:24px 20px 14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.filter-btn{background:var(--white);border:1.5px solid var(--purple-mid);color:var(--muted);padding:7px 16px;border-radius:100px;font-size:0.78rem;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif;transition:all 0.2s;}
+.filter-btn.active,.filter-btn:hover{background:var(--purple-deep);color:white;border-color:var(--purple-deep);}
+.sort-wrap{margin-left:auto;}
+.sort-wrap select{background:var(--white);border:1.5px solid var(--purple-mid);color:var(--text);padding:7px 12px;border-radius:100px;font-size:0.78rem;font-weight:700;font-family:'Nunito',sans-serif;cursor:pointer;}
+.gallery-wrap{max-width:1100px;margin:0 auto;padding:10px 20px 80px;}
+.gallery-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:18px;}
+.img-card{background:var(--white);border-radius:var(--radius);overflow:hidden;box-shadow:0 4px 18px rgba(149,117,205,0.1);transition:transform 0.3s,box-shadow 0.3s;animation:fadeUp 0.4s ease both;position:relative;}
+.img-card:hover{transform:translateY(-5px);box-shadow:0 14px 32px rgba(149,117,205,0.2);}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+.img-card:nth-child(1){animation-delay:.04s}.img-card:nth-child(2){animation-delay:.08s}.img-card:nth-child(3){animation-delay:.12s}.img-card:nth-child(4){animation-delay:.16s}.img-card:nth-child(5){animation-delay:.20s}.img-card:nth-child(6){animation-delay:.24s}.img-card:nth-child(7){animation-delay:.28s}.img-card:nth-child(8){animation-delay:.32s}
+.new-tag{position:absolute;top:10px;left:10px;background:var(--yellow-deep);color:#7b5a00;font-size:0.65rem;font-weight:800;padding:3px 9px;border-radius:100px;letter-spacing:0.5px;}
+.img-placeholder{width:100%;aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:64px;background:linear-gradient(135deg,#ede7f6,#fce4ec);}
+.img-placeholder img{width:100%;height:100%;object-fit:cover;display:block;}
+.img-body{padding:12px 14px 14px;}
+.img-title{font-weight:800;font-size:0.88rem;margin-bottom:3px;color:var(--text);}
+.img-sub{font-size:0.72rem;color:var(--muted);margin-bottom:10px;}
+.dl-counter{font-size:0.68rem;color:var(--purple-deep);font-weight:700;margin-bottom:10px;}
+.btn-row{display:flex;gap:8px;}
+.dl-btn{flex:1;display:flex;align-items:center;justify-content:center;gap:5px;padding:9px 6px;border-radius:10px;border:none;cursor:pointer;font-family:'Nunito',sans-serif;font-size:0.78rem;font-weight:800;background:#ede7f6;color:#4a148c;transition:all 0.2s;}
+.dl-btn:hover{filter:brightness(1.08);transform:scale(1.02);}
+.share-btn{background:var(--purple-soft);color:var(--purple-deep);border:none;width:36px;border-radius:10px;cursor:pointer;font-size:16px;transition:all 0.2s;flex-shrink:0;}
+.share-btn:hover{background:var(--purple-deep);color:white;}
+#toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(60px);background:var(--purple-deep);color:white;padding:10px 22px;border-radius:100px;font-size:0.82rem;font-weight:800;z-index:1000;transition:transform 0.35s cubic-bezier(0.34,1.56,0.64,1);pointer-events:none;white-space:nowrap;}
+#toast.show{transform:translateX(-50%) translateY(0);}
+footer{background:#3d3460;color:rgba(255,255,255,0.6);text-align:center;padding:24px;font-size:0.75rem;}
+footer a{color:var(--yellow-deep);text-decoration:none;margin:0 8px;font-weight:700;}
+body.dark{--bg:#1a1528;--white:#241d38;--text:#e8e0ff;--purple-soft:#2d2448;--purple-mid:#3d3060;--blue-soft:#1a2a38;}
+</style>
+</head>
+<body>
+<nav>
+  <a href="../index.html" class="logo"><div class="logo-icon">🎨</div><div class="logo-text">Art<span>Drop</span></div></a>
+  <a href="../index.html" class="back-btn">← Home</a>
+</nav>
+<div class="page-hero">
+  <div class="cat-label">✏️ Doodle Art</div>
+  <h1>Doodle Art</h1>
+  <p>Fun whimsical doodles — perfect for wallpapers!</p>
+  <div class="how-to"><strong>📁 Apni drawings add karne k liye:</strong> GitHub pe <strong>doodle/</strong> folder mein images upload karein. Phir neeche wale cards mein emoji ki jagah &lt;img&gt; tag lagaen.</div>
+</div>
+<div class="controls">
+  <button class="filter-btn active" onclick="filterAll(this)">All</button>
+  <button class="filter-btn" onclick="filterNew(this)">🆕 New</button>
+  <div class="sort-wrap">
+    <select onchange="sortCards(this.value)">
+      <option value="default">Sort: Default</option>
+      <option value="name">Sort: A-Z</option>
+    </select>
+  </div>
+</div>
+<div class="gallery-wrap">
+  <div class="gallery-grid" id="grid">
+    <div class="img-card" data-new="true"><span class="new-tag">NEW</span><div class="img-placeholder">✏️</div><div class="img-body"><div class="img-title">Star Doodle</div><div class="img-sub">Upload your image · HD</div><div class="dl-counter">⬇ 0 downloads</div><div class="btn-row"><button class="dl-btn" onclick="pendingDl()">⬇ Download</button><button class="share-btn" onclick="shareWA('Star Doodle')" title="Share on WhatsApp">📲</button></div></div></div>
+    <div class="img-card" data-new="true"><span class="new-tag">NEW</span><div class="img-placeholder">🌀</div><div class="img-body"><div class="img-title">Swirl</div><div class="img-sub">Upload your image · HD</div><div class="dl-counter">⬇ 0 downloads</div><div class="btn-row"><button class="dl-btn" onclick="pendingDl()">⬇ Download</button><button class="share-btn" onclick="shareWA('Swirl')" title="Share">📲</button></div></div></div>
+    <div class="img-card"><div class="img-placeholder">⭐</div><div class="img-body"><div class="img-title">Rainbow</div><div class="img-sub">Upload your image · HD</div><div class="dl-counter">⬇ 0 downloads</div><div class="btn-row"><button class="dl-btn" onclick="pendingDl()">⬇ Download</button><button class="share-btn" onclick="shareWA('Rainbow')" title="Share">📲</button></div></div></div>
+    <div class="img-card"><div class="img-placeholder">🌈</div><div class="img-body"><div class="img-title">Heart</div><div class="img-sub">Upload your image · HD</div><div class="dl-counter">⬇ 0 downloads</div><div class="btn-row"><button class="dl-btn" onclick="pendingDl()">⬇ Download</button><button class="share-btn" onclick="shareWA('Heart')" title="Share">📲</button></div></div></div>
+    <div class="img-card"><div class="img-placeholder">💫</div><div class="img-body"><div class="img-title">Moon</div><div class="img-sub">Upload your image · HD</div><div class="dl-counter">⬇ 0 downloads</div><div class="btn-row"><button class="dl-btn" onclick="pendingDl()">⬇ Download</button><button class="share-btn" onclick="shareWA('Moon')" title="Share">📲</button></div></div></div>
+    <div class="img-card"><div class="img-placeholder">🎨</div><div class="img-body"><div class="img-title">Color Splash</div><div class="img-sub">Upload your image · HD</div><div class="dl-counter">⬇ 0 downloads</div><div class="btn-row"><button class="dl-btn" onclick="pendingDl()">⬇ Download</button><button class="share-btn" onclick="shareWA('Color Splash')" title="Share">📲</button></div></div></div>
+    <div class="img-card"><div class="img-placeholder">🌸</div><div class="img-body"><div class="img-title">Flower</div><div class="img-sub">Upload your image · HD</div><div class="dl-counter">⬇ 0 downloads</div><div class="btn-row"><button class="dl-btn" onclick="pendingDl()">⬇ Download</button><button class="share-btn" onclick="shareWA('Flower')" title="Share">📲</button></div></div></div>
+    <div class="img-card"><div class="img-placeholder">💜</div><div class="img-body"><div class="img-title">Abstract</div><div class="img-sub">Upload your image · HD</div><div class="dl-counter">⬇ 0 downloads</div><div class="btn-row"><button class="dl-btn" onclick="pendingDl()">⬇ Download</button><button class="share-btn" onclick="shareWA('Abstract')" title="Share">📲</button></div></div></div>
+  </div>
+</div>
+<div id="toast">📸 Done!</div>
+<footer>
+  <p>© 2026 ArtDrop · AI-generated art · Free for personal use</p>
+  <p style="margin-top:8px;"><a href="../privacy.html">Privacy</a><a href="../terms.html">Terms</a><a href="../index.html">Home</a></p>
+</footer>
+<script>
+function pendingDl(){toast('⚠️ Pehle GitHub pe images upload karein!')}
+function downloadImg(file,title){
+  const a=document.createElement('a');a.href=file;a.download=title+'.jpg';a.click();
+  // increment counter display
+  event.target.closest('.img-card').querySelector('.dl-counter').textContent='⬇ 1 download';
+  toast('✅ Download shuru ho gaya!');
+}
+function shareWA(title){
+  const url=encodeURIComponent(window.location.href);
+  const msg=encodeURIComponent('ArtDrop pe dekho yeh drawing: '+title+' 🎨 '+window.location.href);
+  window.open('https://wa.me/?text='+msg,'_blank');
+}
+function filterAll(btn){document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');document.querySelectorAll('.img-card').forEach(c=>c.style.display='');}
+function filterNew(btn){document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');document.querySelectorAll('.img-card').forEach(c=>{c.style.display=c.dataset.new?'':'none';});}
+function sortCards(val){
+  const grid=document.getElementById('grid');
+  const cards=[...grid.children];
+  if(val==='name'){cards.sort((a,b)=>a.querySelector('.img-title').textContent.localeCompare(b.querySelector('.img-title').textContent));}
+  else{cards.sort((a,b)=>0);}
+  cards.forEach(c=>grid.appendChild(c));
+}
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2800);}
+</script>
+</body>
+</html>
